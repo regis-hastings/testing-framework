@@ -18,17 +18,18 @@ class Runner {
         beforeEaches.forEach(func => func());
         try {
           fn();
-          console.log(chalk.green(`PASS - ${desc}`));
+          console.log(chalk.green(`\tPASS - ${desc}`));
         } catch (err) {
-          console.log(chalk.red(`FAIL - ${desc}`));
-          console.log(chalk.red('\t', err.message));
+          const message = err.message.replace(/\n/g, '\n\t\t');
+          console.log(chalk.red(`\tFAIL - ${desc}`));
+          console.log(chalk.red('\t', message));
         }
       };
 
       try {
         require(file.name);
       } catch (err) {
-        console.log(chalk.red(chalk.red(err)));
+        console.log(chalk.red(err));
       }
     }
   }
